@@ -3,7 +3,7 @@ Unnamed Service will be maintaining a third-party Guix channel with package and 
 
 ** Channel
 Add to channels.scm:
-#+BEGIN_SRC
+#+BEGIN_SRC scheme
 (channel
   (name 'unnsvc)
   (url "https://github.com/paulalesius/com.unnsvc.guix")
