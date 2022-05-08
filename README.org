@@ -1,13 +1,27 @@
 * com.unnsvc.guix - Third-Party Guix Channel
-Maintaining a third-party Guix channel with package and service definitions.
+Unnamed Service will be maintaining a third-party Guix channel with package and service definitions. For issues, use the "Issues" function on GitHub.
 
-** Services
+** Channel
+Add to channels.scm:
+#+BEGIN_SRC
+(channel
+  (name 'unnsvc)
+  (url "https://github.com/paulalesius/com.unnsvc.guix")
+  (branch "main")
+  (introduction
+    (make-channel-introduction
+      "71e639aea2828c466f77c1ff7fd0517ef17a4d08"
+      (openpgp-fingerprint
+        "4FBD 7445 5FDD 4E6E 75B1 D91B FAB8 710F BCD2 0E1C"))))
+#+END_SRC
+** Contents
+*** Services
 | What?                  | Service type | Description                                                          |
 |------------------------+--------------+----------------------------------------------------------------------|
 | dogecoind-service-type | system       | Dogecoind service!                                                   |
 | guix-repl-service-type | system       | Start REPL on boot so that Emacs-Geiser can connect to it on startup |
 
-** Packages
+*** Packages
 | What?         | Version | Guix identifier   | Notes                                                                   |
 |---------------+---------+-------------------+-------------------------------------------------------------------------|
 | Rust          |    1.60 | rust              |                                                                         |
