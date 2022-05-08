@@ -17,8 +17,8 @@ Unnamed Service will be maintaining a public third-party [[https://guix.gnu.org/
 *** Services
 | Service                | Service type |               |
 |------------------------+--------------+---------------|
-| dogecoind-service-type | system       | [[*Dogecoin][Documentation]] |
-| guix-repl-service-type | system       | [[*Guix-repl][Documentation]] |
+| dogecoind-service-type | system       | [[#dogecoin][Documentation]] |
+| guix-repl-service-type | system       | [[#guix-repl][Documentation]] |
 
 *** Packages
 | What?         | Version | Guix identifier   | Notes                                                                            |
@@ -32,6 +32,7 @@ Unnamed Service will be maintaining a public third-party [[https://guix.gnu.org/
 
 ** Configurations
 *** Dogecoin
+#+PROPERTY: CUSTOM_ID dogecoin
 #+BEGIN_SRC scheme
 (service dogecoind-service-type
   (dogecoind-configuration
@@ -46,6 +47,7 @@ Unnamed Service will be maintaining a public third-party [[https://guix.gnu.org/
       content")))
 #+END_SRC
 *** Guix-Repl
+#+PROPERTY: CUSTOM_ID guix-repl
 A Guix REPL service to start a Guix REPL on boot. This is useful for Emacs Geiser if you want it to connect to a Guix REPL automatically when Emacs starts.
 #+BEGIN_SRC scheme
 (service guix-repl-service-type
