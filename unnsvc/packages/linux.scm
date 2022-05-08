@@ -37,14 +37,10 @@
 ;; Overrides framework version that defaults to linux-5.15
 (define-public linux linux-5.17)
 
-(define-public linux-managed-devbox
+(define-public (linux-managed kernel-config)
   (package
     (inherit linux)
-    (name (string-append "linux-managed-devbox"))
-    ;;(arguments
-     ;;(substitute-keyword-arguments (package-arguments linux)
-       ;;`(#:make-flags (list "CFLAGS=-march=native")) Seen this version too, ???
-
+    (name "linux-managed")
        ;; The KCFLAGS are definitely applied to all processes, but don't know about CFLAGS.
        ;; CFLAGS is passed to the initial make process, but not to the child builders, according
        ;; to htop. KCFLAGS on the other hand, is applied to child builders of make.
@@ -53,25 +49,8 @@
        ;;((#:make-flags flags ''())
        ;;  `(cons* "CFLAGS=-march=native -mtune=native -O2" "KCFLAGS=-march=native -mtune=native -O2" ,flags))
        ;;)
-       ))
-
-(define-public (linux-managed kernel-config)
-  (package
-    (inherit linux)
-    (name "linux-managed")
-
     (native-inputs
      `(("kconfig" ,kernel-config)
-       ("cpio" ,cpio) ;; This is required to build ikheaders
-       ,@(alist-delete "kconfig"
-                       (package-native-inputs linux))))))
-
-(define-public linux-managed-digitalocean
-  (package
-    (inherit linux)
-    (name (string-append "linux-managed-digitalocean"))
-    (native-inputs
-     `(("kconfig" ,(local-file "linux-managed-digitalocean-5.17.config"))
        ("cpio" ,cpio) ;; This is required to build ikheaders
        ,@(alist-delete "kconfig"
                        (package-native-inputs linux))))))
