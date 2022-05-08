@@ -15,17 +15,42 @@ Unnamed Service will be maintaining a public third-party [[https://guix.gnu.org/
 #+END_SRC
 ** Contents
 *** Services
-| What?                  | Service type | Description                                                          |
-|------------------------+--------------+----------------------------------------------------------------------|
-| dogecoind-service-type | system       | Dogecoind service!                                                   |
-| guix-repl-service-type | system       | Start REPL on boot so that Emacs-Geiser can connect to it on startup |
+| Service                | Service type |               |
+|------------------------+--------------+---------------|
+| dogecoind-service-type | system       | [[*Dogecoin][Documentation]] |
+| guix-repl-service-type | system       | [[*Guix-repl][Documentation]] |
 
 *** Packages
-| What?         | Version | Guix identifier   | Notes                                                                   |
-|---------------+---------+-------------------+-------------------------------------------------------------------------|
-| Rust          |    1.60 | rust              |                                                                         |
-| Rust Sources  |    1.60 | rust-src          | Needed to set RUST_SRC_PATH for rust-analyzer when building from source |
-| Cargo         |    1.60 | rust-cargo        |                                                                         |
-| Dogecoin-core |  1.14.5 | dogecoin-core     |                                                                         |
-| Nerd Fonts    |   2.1.0 | font-nerd-fonts   |                                                                         |
-| Flameshot     |  11.0.0 | flameshot-managed |                                                                         |
+| What?         | Version | Guix identifier   | Notes                                                                            |
+|---------------+---------+-------------------+----------------------------------------------------------------------------------|
+| Rust          |    1.60 | rust              |                                                                                  |
+| Rust Sources  |    1.60 | rust-src          | Needed for setting RUST_SRC_PATH for rust-analyzer when you compile it from git. |
+| Cargo         |    1.60 | rust-cargo        |                                                                                  |
+| Dogecoin-core |  1.14.5 | dogecoin-core     |                                                                                  |
+| Nerd Fonts    |   2.1.0 | font-nerd-fonts   |                                                                                  |
+| Flameshot     |  11.0.0 | flameshot-managed |                                                                                  |
+
+** Configurations
+*** Dogecoin
+#+BEGIN_SRC scheme
+(service dogecoind-service-type
+  (dogecoind-configuration
+    (user "dogecoin")
+    (group "dogecoin")
+    (datadir "/var/lib/dogecoind")
+    (conf "/etc/dogecoind.conf")
+    (extra-content
+      "any
+      additional
+      dogecoind.conf
+      content")))
+#+END_SRC
+*** Guix-Repl
+A Guix REPL service to start a Guix REPL on boot. This is useful for Emacs Geiser if you want it to connect to a Guix REPL automatically when Emacs starts.
+#+BEGIN_SRC scheme
+(service guix-repl-service-type
+  (guix-repl-configuration
+   (port "37146")
+   (user "guix-repl")
+   (group "guix-repl")))
+#+END_SRC

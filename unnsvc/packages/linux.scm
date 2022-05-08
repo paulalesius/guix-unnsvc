@@ -53,8 +53,15 @@
        ;;((#:make-flags flags ''())
        ;;  `(cons* "CFLAGS=-march=native -mtune=native -O2" "KCFLAGS=-march=native -mtune=native -O2" ,flags))
        ;;)
+       ))
+
+(define-public (linux-managed kernel-config)
+  (package
+    (inherit linux)
+    (name "linux-managed")
+
     (native-inputs
-     `(("kconfig" ,(local-file "linux-managed-devbox-5.17.config"))
+     `(("kconfig" ,kernel-config)
        ("cpio" ,cpio) ;; This is required to build ikheaders
        ,@(alist-delete "kconfig"
                        (package-native-inputs linux))))))
