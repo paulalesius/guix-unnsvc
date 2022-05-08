@@ -15,14 +15,15 @@ Unnamed Service will be maintaining a public third-party [[https://guix.gnu.org/
 #+END_SRC
 ** Contents
 *** Services
-| Service                | Service type |               |
-|------------------------+--------------+---------------|
-| dogecoind-service-type | system       | [[#dogecoin][Documentation]] |
-| guix-repl-service-type | system       | [[#guix-repl][Documentation]] |
+| Service                | Service type |
+|------------------------+--------------+
+| [[#dogecoin][dogecoind-service-type]] | system       |
+| [[#guix-repl][guix-repl-service-type]] | system       |
 
 *** Packages
 | What?         | Version | Guix identifier   | Notes                                                                            |
 |---------------+---------+-------------------+----------------------------------------------------------------------------------|
+| Linux         |         |                   | Linux with a a custom configuration.                                             |
 | Rust          |    1.60 | rust              |                                                                                  |
 | Rust Sources  |    1.60 | rust-src          | Needed for setting RUST_SRC_PATH for rust-analyzer when you compile it from git. |
 | Cargo         |    1.60 | rust-cargo        |                                                                                  |
@@ -39,7 +40,9 @@ Unnamed Service will be maintaining a public third-party [[https://guix.gnu.org/
     (user "dogecoin")
     (group "dogecoin")
     (datadir "/var/lib/dogecoind")
+    ;; The location of the configuration file
     (conf "/etc/dogecoind.conf")
+    ;; The content of the configuration file at location specified above
     (extra-content
       "any
       additional
@@ -55,4 +58,16 @@ A Guix REPL service to start a Guix REPL on boot. This is useful for Emacs Geise
    (port "37146")
    (user "guix-repl")
    (group "guix-repl")))
+#+END_SRC
+*** Linux
+#+PROPERTY: CUSTOM_ID linux
+Linux kernel with a custom configuration picked up relative to the config that defines the (operating-system.)
+#+BEGIN_SRC scheme
+;; Your operating-system definition
+(operating-system
+  ...
+  (kernel (linux-managed
+           ;; The config to use, located relative to the system.scm
+           (local-file "linux-managed.config")))
+  ...)
 #+END_SRC
