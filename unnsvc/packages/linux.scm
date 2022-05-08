@@ -86,6 +86,3 @@
      `(#:install-plan
        (list (list (string-append "v" ,version ".x/sof-v" ,version) "lib/firmware/intel/sof")
              (list (string-append "v" ,version ".x/sof-tplg-v" ,version) "lib/firmware/intel/sof-tplg"))))))
-
-
-linux-managed-devbox
