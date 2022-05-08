@@ -21,15 +21,16 @@ Unnamed Service will be maintaining a public third-party [[https://guix.gnu.org/
 | [[#guix-repl][guix-repl-service-type]] | system       |
 
 *** Packages
-| What?         | Version | Guix identifier   | Notes                                                                            |
-|---------------+---------+-------------------+----------------------------------------------------------------------------------|
-| Linux         |  5.17.5 | linux-managed     | Linux with a custom kernel config. A configuration must be provided, see [[#linux][(linux-managed "config...")]] |
-| Rust          |    1.60 | rust              |                                                                                  |
-| Rust Sources  |    1.60 | rust-src          | Needed for setting RUST_SRC_PATH for rust-analyzer when you compile it from git. |
-| Cargo         |    1.60 | rust-cargo        |                                                                                  |
-| Dogecoin-core |  1.14.5 | dogecoin-core     |                                                                                  |
-| Nerd Fonts    |   2.1.0 | font-nerd-fonts   |                                                                                  |
-| Flameshot     |  11.0.0 | flameshot-managed |                                                                                  |
+See the notes as some packages require additional configuration.
+| What?         | Version | Guix identifier/Notes |
+|---------------+---------+-----------------------|
+| Linux         |  5.17.5 | [[#linux][linux-managed]]         |
+| Rust          |    1.60 | rust                  |
+| Rust Sources  |    1.60 | [[#rust-src][rust-src]]              |
+| Cargo         |    1.60 | rust-cargo            |
+| Dogecoin-core |  1.14.5 | dogecoin-core         |
+| Nerd Fonts    |   2.1.0 | font-nerd-fonts       |
+| Flameshot     |  11.0.0 | flameshot-managed     |
 
 ** Configurations
 *** Dogecoin
@@ -71,3 +72,15 @@ Linux kernel with a custom configuration picked up relative to the config that d
            (local-file "linux-managed.config")))
   ...)
 #+END_SRC
+*** Rust
+**** rust-src
+#+PROPERTY: CUSTOM_ID rust-src
+Rust-src is not public in the default Guix channel. This channel enables one to also install rust-src.
+
+When compiling rust-analyzer from source, it will require rust-src and will search for it in the RUST_SRC_PATH environment variable. For instance, if you install rust-src in your default user profile:
+
+#+BEGIN_SRC bash
+guix install rust-src
+#+END_SRC
+
+Then RUST_SRC_PATH should point to ~/.guix-profile/lib/rustlib/src/rust/library.
