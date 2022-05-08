@@ -1,8 +1,7 @@
-* com.unnsvc.guix - Third-Party Guix Channel
+* Third-Party Guix Channel
 Unnamed Service will be maintaining a public third-party [[https://guix.gnu.org/][GNU Guix]] channel with package and service definitions. For issues, use the "Issues" function on GitHub.
 
-** Channel
-Add to channels.scm:
+** channels.scm
 #+BEGIN_SRC scheme
 (channel
   (name 'unnservice)
