@@ -16,14 +16,14 @@ Unnamed Service will be maintaining a public third-party [[https://guix.gnu.org/
 ** Contents
 *** Services
 | Service                | Service type |
-|------------------------+--------------+
+|------------------------+--------------|
 | [[#dogecoin][dogecoind-service-type]] | system       |
 | [[#guix-repl][guix-repl-service-type]] | system       |
 
 *** Packages
 | What?         | Version | Guix identifier   | Notes                                                                            |
 |---------------+---------+-------------------+----------------------------------------------------------------------------------|
-| Linux         |  5.17.5 | linux-managed     | Linux with a custom configuration.                                               |
+| Linux         |  5.17.5 | linux-managed     | Linux with a custom kernel config. A configuration must be provided, see [[#linux][(linux-managed "config...")]] |
 | Rust          |    1.60 | rust              |                                                                                  |
 | Rust Sources  |    1.60 | rust-src          | Needed for setting RUST_SRC_PATH for rust-analyzer when you compile it from git. |
 | Cargo         |    1.60 | rust-cargo        |                                                                                  |
