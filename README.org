@@ -23,7 +23,7 @@ Unnamed Service will be maintaining a public third-party [[https://guix.gnu.org/
 *** Packages
 | What?         | Version | Guix identifier   | Notes                                                                            |
 |---------------+---------+-------------------+----------------------------------------------------------------------------------|
-| Linux         |  5.17.5 | linux-managed     | Linux with a a custom configuration.                                             |
+| Linux         |  5.17.5 | linux-managed     | Linux with a custom configuration.                                               |
 | Rust          |    1.60 | rust              |                                                                                  |
 | Rust Sources  |    1.60 | rust-src          | Needed for setting RUST_SRC_PATH for rust-analyzer when you compile it from git. |
 | Cargo         |    1.60 | rust-cargo        |                                                                                  |
