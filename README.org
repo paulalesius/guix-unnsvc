@@ -24,7 +24,7 @@ Unnamed Service will be maintaining a public third-party [[https://guix.gnu.org/
 See the notes as some packages require additional configuration.
 | What?         | Version | Guix identifier/Notes |
 |---------------+---------+-----------------------|
-| Linux         |  5.17.5 | [[#linux][linux-managed]]         |
+| Linux         |  5.17.6 | [[#linux][linux-managed]]         |
 | Rust          |    1.60 | rust                  |
 | Rust Sources  |    1.60 | [[#rust-src][rust-src]]              |
 | Cargo         |    1.60 | rust-cargo            |
