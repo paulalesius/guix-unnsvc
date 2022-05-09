@@ -14,12 +14,12 @@
 (use-srfis '(1))
 
 (define kernel-version
-  "5.17.5")
+  "5.17.6")
 
 ;; To download and print the has:
 ;; guix download <url to .tar.xz form kernel.org
 (define kernel-hash
-  "11z95wsgmj97pg77yck26l0383gncbla0zwpzv4gjdj4p62x3g4v")
+  "035i9i0gg3fxi5ighjrya97592sk0i4xagra6a8m8nxyh21z3k34")
 
 ;; This method is overridden from gnu/packages/linux to change the URL
 (define
