@@ -27,7 +27,6 @@ See the notes as some packages require additional configuration.
 | Linux         |  5.17.7 | [[#linux][linux-managed]]         |
 | Dogecoin-core |  1.14.5 | dogecoin-core         |
 | Nerd Fonts    |   2.1.0 | font-nerd-fonts       |
-| Flameshot     |  11.0.0 | flameshot-managed     |
 
 ** Configurations
 *** Dogecoin
