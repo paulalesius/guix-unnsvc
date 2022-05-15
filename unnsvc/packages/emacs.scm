@@ -10,7 +10,8 @@
   #:use-module (gnu packages emacs-xyz)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages suckless)
-  #:use-module (flat packages emacs))
+  ;;#:use-module (flat packages emacs)
+  )
 
 (define-public emacs-exwm-managed
   (package
@@ -18,7 +19,7 @@
     (name "emacs-exwm-managed")
     (propagated-inputs
      (list emacs-xelb           ;; ??
-           emacs-native-comp    ;; emacs we'll use
+           emacs                ;; emacs we'll use
            emacs-guix
            ;;slock                ;; screen lock
            ;;xset                 ;; DPMS
@@ -29,7 +30,7 @@
     (arguments
      ;; Use (substitute-keyword-arguments (package-arguments emacs)) to replace selectively
      ;; EXWM does not work with emacs-pgtk-native-comp, use emacs-native-comp
-     `(#:emacs ,emacs-native-comp
+     `(#:emacs ,emacs
        #:phases
        (modify-phases %standard-phases
          (add-after 'build 'install-xsession
