@@ -2,7 +2,7 @@
 
 (channel
  (version 0)
- (news-file "NEWS.TXT")
+ ;;(news-file "NEWS.TXT")
  (url "https://github.com/unnservice/guix-channel")
  (dependencies
    (channel
