@@ -55,10 +55,10 @@
        ,@(alist-delete "kconfig"
                        (package-native-inputs linux))))))
 
-(define-public linux-firmware-managed
+(define-public linux-firmware
   (package
     (inherit linux-firmware)
-    (name "linux-firmware-managed")
+    (name "linux-firmware")
     (version "20220411")
     (source (origin
               (method url-fetch)
