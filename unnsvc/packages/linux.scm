@@ -55,7 +55,7 @@
        ,@(alist-delete "kconfig"
                        (package-native-inputs linux))))))
 
-(define-public linux-firmware
+(define-public linux-firmware-managed
   (package
     (inherit linux-firmware)
     (name "linux-firmware")
