@@ -59,14 +59,14 @@
   (package
     (inherit linux-firmware)
     (name "linux-firmware")
-    (version "20220411")
+    (version "20220509")
     (source (origin
               (method url-fetch)
               (uri (string-append "https://git.kernel.org/pub/scm/linux/kernel"
                                   "/git/firmware/linux-firmware.git/snapshot/"
                                   "linux-firmware-" version ".tar.gz"))
               (sha256
-               (base32 "0bw76zxrqgxbh8b3nhaw2wx409sppjfjmdfsjr36mkzanchycfjk"))))))
+               (base32 "0bw76zxrqgxbh8b3nhaw2wx409sppjfjmdfsjr36mkzanchycfj1"))))))
 
 (define-public sof-firmware-managed
   (package
@@ -87,3 +87,5 @@
        (list (list (string-append "v" ,version ".x/sof-v" ,version) "lib/firmware/intel/sof")
              (list (string-append "v" ,version ".x/sof-tplg-v" ,version) "lib/firmware/intel/sof-tplg"))))))
 
+
+linux-firmware-managed
