@@ -14,12 +14,12 @@
 (use-srfis '(1))
 
 (define kernel-version
-  "5.17.9")
+  "5.17.11")
 
 ;; To download and print the has:
 ;; guix download <url to .tar.xz form kernel.org
 (define kernel-hash
-  "0y2rmn86z3cvgv71b6sjjyafnlbanlib1kjpjjqzjbgg86y2890p")
+  "0c8vz02lbfm0zkgsr1gvdp8bzxz255dk863pnakw6d77z9bfc22p")
 
 ;; This method is overridden from gnu/packages/linux to change the URL
 (define
@@ -86,3 +86,4 @@
      `(#:install-plan
        (list (list (string-append "v" ,version ".x/sof-v" ,version) "lib/firmware/intel/sof")
              (list (string-append "v" ,version ".x/sof-tplg-v" ,version) "lib/firmware/intel/sof-tplg"))))))
+
