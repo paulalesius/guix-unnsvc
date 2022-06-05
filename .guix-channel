@@ -3,12 +3,12 @@
 (channel
  (version 0)
  ;;(news-file "NEWS.TXT")
- (url "https://github.com/unnservice/guix-channel")
+ (url "https://github.com/paulalesius/guix-unnsvc")
  (dependencies
    (channel
     (name guix)
-    (url "https://github.com/paulalesius/guix")
-    (branch "master")
+    (url "https://github.com/paulalesius/guix-gnu")
+    (branch "custom")
     (introduction
      (channel-introduction
       (version 0)
@@ -16,7 +16,8 @@
       (signer "BBB0 2DDF 2CEA F6A8 0D1D  E643 A2A0 6DF2 A33A 54FA"))))
    (channel
     (name nonguix)
-    (url "https://github.com/paulalesius/nonguix")
+    (url "https://github.com/paulalesius/guix-nongnu")
+    (branch "custom")
     (introduction
      (channel-introduction
       (version 0)
