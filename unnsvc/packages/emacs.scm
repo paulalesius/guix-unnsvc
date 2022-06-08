@@ -19,7 +19,7 @@
     (name "emacs-exwm-managed")
     (propagated-inputs
      (list emacs-xelb           ;; ??
-           emacs-next           ;; emacs we'll use
+           emacs                ;; emacs we'll use
            emacs-guix
            ;;slock                ;; screen lock
            ;;xset                 ;; DPMS
@@ -30,7 +30,7 @@
     (arguments
      ;; Use (substitute-keyword-arguments (package-arguments emacs)) to replace selectively
      ;; EXWM does not work with emacs-pgtk-native-comp, use emacs-native-comp
-     `(#:emacs ,emacs-next
+     `(#:emacs ,emacs
        #:phases
        (modify-phases %standard-phases
          (add-after 'build 'install-xsession
