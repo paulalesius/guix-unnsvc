@@ -22,8 +22,8 @@
            emacs                ;; emacs we'll use
            emacs-guix
            ;;slock                ;; screen lock
-           xss-lock
-           xset                 ;; DPMS
+           ;;xss-lock
+           ;;xset                 ;; DPMS
            xclip                ;; EXWM clipboard
            ))
     (inputs
@@ -54,13 +54,9 @@
                    (format #t
                     "#!~a ~@
 ~a +SI:localuser:$USER ~@
-~a s 180 120
-~a -- /run/setuid-programs/slock &
 exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
                            (search-input-file inputs "/bin/sh")
                            (search-input-file inputs "/bin/xhost")
-                           (search-input-file inputs "/bin/xset")
-                           (search-input-file inputs "/bin/xss-lock")
                            (search-input-file inputs "/bin/dbus-launch")
                            (search-input-file inputs "/bin/emacs")
                            '(cond
