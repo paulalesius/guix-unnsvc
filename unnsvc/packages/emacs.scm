@@ -55,7 +55,7 @@
                     "#!~a ~@
 ~a +SI:localuser:$USER ~@
 ~a s 180 120
-~a -- /run/setuid-programs/slock &&
+~a -- /run/setuid-programs/slock &
 exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
                            (search-input-file inputs "/bin/sh")
                            (search-input-file inputs "/bin/xhost")
