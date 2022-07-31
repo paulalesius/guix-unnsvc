@@ -1,4 +1,4 @@
-(define-module (unnsvc packages rust-apps)
+(define-module (unnsvc packages crates-io)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix build-system cargo)
   #:use-module (guix download)
