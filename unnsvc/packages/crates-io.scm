@@ -77,7 +77,7 @@
          "1rl8pzzbxsgkx0v20bvvbwrlqhbifzw2p3ikwrns9b543fydsb86"))))
     (build-system cargo-build-system)
     (arguments
-     `(#:tests? #f
+     `(;;#:tests? #f
        #:cargo-inputs
        (("rust-bitflags" ,rust-bitflags-1)
         ("rust-cexpr" ,rust-cexpr-0.6)
@@ -181,7 +181,10 @@ bindings to C and C++ libraries.")
         (base32
          "1af06z8z7m3327yz1xvzxfjanclgpvvy3lssb745rig7adkbpnx3"))))
       (arguments
-     `(#:cargo-inputs
+     `(#:cargo-test-flags
+       '("--release" "--"
+         "--skip=test::commandline_multiple_headers")
+       #:cargo-inputs
        (("rust-atty" ,rust-atty-0.2)
         ("rust-bitflags" ,rust-bitflags-1)
         ("rust-clap-derive" ,rust-clap-derive-3.2)
