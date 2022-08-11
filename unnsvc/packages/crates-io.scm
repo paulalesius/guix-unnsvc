@@ -35,7 +35,74 @@
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages webkit)
   #:use-module (gnu packages xorg)
+  #:use-module (gnu packages llvm)
   #:use-module (gnu packages rust-apps))
+
+(define-public rust-clang-sys-1.3
+  (package
+    (name "rust-clang-sys")
+    (version "1.3.3")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (crate-uri "clang-sys" version))
+       (file-name (string-append name "-" version ".tar.gz"))
+       (sha256
+        (base32
+         "16y60shvmdsf7gbdvbi1zaqgsi78k29f4d37ppz0ign5achhw1as"))))
+    (build-system cargo-build-system)
+    (inputs
+     (list clang))
+    (arguments
+     `(#:cargo-inputs
+       (("rust-glob" ,rust-glob-0.3)
+        ("rust-libc" ,rust-libc-0.2)
+        ("rust-libloading" ,rust-libloading-0.7))))
+    (home-page "https://github.com/KyleMayes/clang-sys")
+    (synopsis "Rust bindings for libclang")
+    (description "This package provides Rust bindings for libclang.")
+    (license license:asl2.0)))
+
+(define-public rust-bindgen-0.60
+  (package
+    (name "rust-bindgen")
+    (version "0.60.1")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (crate-uri "bindgen" version))
+       (file-name (string-append name "-" version ".tar.gz"))
+       (sha256
+        (base32
+         "1rl8pzzbxsgkx0v20bvvbwrlqhbifzw2p3ikwrns9b543fydsb86"))))
+    (build-system cargo-build-system)
+    (arguments
+     `(#:tests? #f
+       #:cargo-inputs
+       (("rust-bitflags" ,rust-bitflags-1)
+        ("rust-cexpr" ,rust-cexpr-0.6)
+        ("rust-clang-sys" ,rust-clang-sys-1.3)
+        ("rust-clap" ,rust-clap-3.2)
+        ("rust-diff" ,rust-diff-0.1)
+        ("rust-env-logger" ,rust-env-logger-0.9)
+        ("rust-lazy-static" ,rust-lazy-static-1)
+        ("rust-lazycell" ,rust-lazycell-1)
+        ("rust-log" ,rust-log-0.4)
+        ("rust-peeking-take-while" ,rust-peeking-take-while-0.1)
+        ("rust-proc-macro2" ,rust-proc-macro2-1)
+        ("rust-quote" ,rust-quote-1)
+        ("rust-regex" ,rust-regex-1)
+        ("rust-rustc-hash" ,rust-rustc-hash-1)
+        ("rust-shlex" ,rust-shlex-1)
+        ("rust-tempfile" ,rust-tempfile-3)
+        ("rust-which" ,rust-which-4))))
+    (inputs
+     (list clang))
+    (home-page "https://rust-lang.github.io/rust-bindgen/")
+    (synopsis "Generate Rust FFI bindings to C and C++ libraries")
+    (description "This package can be used to automatically generate Rust FFI
+bindings to C and C++ libraries.")
+    (license license:bsd-3)))
 
 (define-public rust-unicode-ident-1
   (package
