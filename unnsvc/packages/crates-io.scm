@@ -77,7 +77,7 @@
          "1rl8pzzbxsgkx0v20bvvbwrlqhbifzw2p3ikwrns9b543fydsb86"))))
     (build-system cargo-build-system)
     (arguments
-     `(;;#:tests? #f
+     `(#:tests? #f
        #:cargo-inputs
        (("rust-bitflags" ,rust-bitflags-1)
         ("rust-cexpr" ,rust-cexpr-0.6)
@@ -277,4 +277,3 @@ bindings to C and C++ libraries.")
         ("rust-toml" ,rust-toml-0.5))
        #:cargo-development-inputs
        (("rust-serial-test" ,rust-serial-test-0.5))))))
-
