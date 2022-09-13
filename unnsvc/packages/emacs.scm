@@ -19,7 +19,7 @@
     (name "emacs-exwm-managed")
     (propagated-inputs
      (list
-           ;;emacs-xelb           ;; ??
+           emacs-xelb           ;; ??
            emacs                ;; emacs we'll use
            ;;emacs-guix
            ;;slock                ;; screen lock
