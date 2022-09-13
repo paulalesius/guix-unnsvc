@@ -18,10 +18,10 @@
     (inherit emacs-exwm)
     (name "emacs-exwm-managed")
     (propagated-inputs
-     (list emacs-xelb           ;; ??
+     (list
+           ;;emacs-xelb           ;; ??
            emacs                ;; emacs we'll use
-           emacs-guix
-	   emacs-vterm
+           ;;emacs-guix
            ;;slock                ;; screen lock
            ;;xss-lock
            ;;xset                 ;; DPMS
@@ -52,11 +52,10 @@
                ;; Add a shell wrapper to bin
                (with-output-to-file exwm-executable
                  (lambda _
-		   ;; remove --no-site-file
                    (format #t
                     "#!~a ~@
 ~a +SI:localuser:$USER ~@
-exec ~a --exit-with-session ~a -fs \"$@\" --eval '~s' ~%"
+exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
                            (search-input-file inputs "/bin/sh")
                            (search-input-file inputs "/bin/xhost")
                            (search-input-file inputs "/bin/dbus-launch")
