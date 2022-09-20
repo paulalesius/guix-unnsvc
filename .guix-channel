@@ -31,4 +31,13 @@
          (channel-introduction
           (version 0)
           (commit "d95204cc50de4c3a7abcbff86cfec7d5eed43a7e")
-          (signer "736A C00E 1254 378B A982  7AF6 9DBE 8265 81B6 4490"))))))
+          (signer "736A C00E 1254 378B A982  7AF6 9DBE 8265 81B6 4490"))))
+   (channel
+    (name rust)
+    (url "https://github.com/paulalesius/guix-rust.git")
+    (branch "main")
+    (introduction
+     (channel-introduction
+      (version 0)
+      (commit "7e35a1889ea8dc093b316a0ed4ff2caae9a767c7")
+      (signer "736A C00E 1254 378B A982  7AF6 9DBE 8265 81B6 4490"))))))
