@@ -34,7 +34,7 @@
           (signer "736A C00E 1254 378B A982  7AF6 9DBE 8265 81B6 4490"))))
    (channel
     (name rust)
-    (url "https://github.com/paulalesius/guix-rust.git")
+    (url "https://github.com/paulalesius/guix-rust")
     (branch "main")
     (introduction
      (channel-introduction
