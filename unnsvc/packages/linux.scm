@@ -44,11 +44,17 @@ System on hardware which requires nonfree software to function.")))
     ;; gcc -### -E - -march=native 2>&1 | sed -r '/cc1/!d;s/(")|(^.* - )|( -mno-[^\ ]+)//g'
     (arguments
      (substitute-keyword-arguments (package-arguments linux)
-       ((#:make-flags flags ''())
-        `(cons*
-          (format #f "KCFLAGS=\"~S\"" ,kcflags)
-          (format #f "CFLAGS=\"~S\"" ,kcflags)
-          ,flags))))
+       ((#:phases phases)
+        #~(modify-phases #$phases
+          (add-after 'unpack 'set-kcflags
+            (lambda* _
+              (setenv "KCFLAGS" #$kcflags)))))))
+;;       ((#:make-flags flags ''())
+;;        `(cons*
+;;          (string-append "KCFLAGS=\"" ,kcflags "\"")
+;;          ;;(format #f "CFLAGS=~S" ,kcflags)
+;;          "V=1"
+;;          ,flags))))
     (native-inputs
      `(("kconfig" ,kernel-config)
        ("cpio" ,cpio) ;; This is required to build ikheaders
