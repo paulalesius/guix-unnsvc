@@ -34,7 +34,7 @@
      "The unmodified Linux kernel, including nonfree blobs, for running Guix
 System on hardware which requires nonfree software to function.")))
 
-(define-public (linux-optimal kcflags kernel-config)
+(define-public (linux-optimal kernel-config)
   (package
     (inherit linux)
     (name "linux-optimal")
@@ -43,13 +43,13 @@ System on hardware which requires nonfree software to function.")))
     ;; to htop. KCFLAGS on the other hand, is applied to child builders of make.
     ;; gcc -### -E - -march=native 2>&1 | sed -r '/cc1/!d;s/(")|(^.* - )//g'
     ;; gcc -### -E - -march=native 2>&1 | sed -r '/cc1/!d;s/(")|(^.* - )|( -mno-[^\ ]+)//g'
-    (arguments
-     (substitute-keyword-arguments (package-arguments linux)
-       ((#:phases phases)
-        #~(modify-phases #$phases
-          (add-after 'unpack 'set-kcflags
-            (lambda* _
-              (setenv "KCFLAGS" #$kcflags)))))))
+    ;; (arguments
+    ;;  (substitute-keyword-arguments (package-arguments linux)
+    ;;    ((#:phases phases)
+    ;;     #~(modify-phases #$phases
+    ;;       (add-after 'unpack 'set-kcflags
+    ;;         (lambda* _
+    ;;           (setenv "KCFLAGS" #$kcflags)))))))
 ;;       ((#:make-flags flags ''())
 ;;        `(cons*
 ;;          (string-append "KCFLAGS=\"" ,kcflags "\"")
