@@ -1,4 +1,5 @@
 (define-module (unnsvc packages linux)
+  #:use-module (ice-9 threads)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix packages)
   #:use-module (guix download)
