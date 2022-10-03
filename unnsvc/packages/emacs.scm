@@ -21,6 +21,7 @@
      (list
            emacs-xelb           ;; ??
            emacs                ;; emacs we'll use
+           emacs-pdf-tools      ;; Requires special building procedure and OS integration
            ;;emacs-guix
            ;;slock                ;; screen lock
            ;;xss-lock
@@ -73,3 +74,4 @@ exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
                #t))))))
     (home-page "http://custom")
     (synopsis "Derivative")))
+
