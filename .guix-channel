@@ -2,35 +2,23 @@
 
 (channel
  (version 0)
- ;;(news-file "NEWS.TXT")
  (url "https://github.com/paulalesius/guix-unnsvc")
  (dependencies
    (channel
     (name guix)
-    ;;(url "https://github.com/paulalesius/guix-gnu")
-    (url "file:///storage/src/unnsvc/guix/guix-gnu")
-    (branch "custom"))
+    (url "https://github.com/paulalesius/guix-gnu")
+    (branch "custom")
+    (introduction
+     (channel-introduction
+      (version 0)
+      (commit "fe80f4d67f07f9a3185faaccbf00dfe2ce436bbc")
+      (signer "AB7C 0B82 B5DC A8BB 94F7  AC94 4FC8 0465 FEDC EB19"))))
    (channel
     (name nonguix)
-    ;;(url "https://github.com/paulalesius/guix-nongnu")
-    (url "file:///storage/src/unnsvc/guix/guix-nongnu")
-    (branch "custom"))
-   ;;(channel
-   ;;     (name flat)
-   ;;     (url "https://github.com/paulalesius/guix-flat")
-   ;;     (branch "custom")
-   ;;     (introduction
-   ;;      (channel-introduction
-   ;;       (version 0)
-   ;;       (commit "d95204cc50de4c3a7abcbff86cfec7d5eed43a7e")
-   ;;       (signer "736A C00E 1254 378B A982  7AF6 9DBE 8265 81B6 4490"))))
-   ;;(channel
-   ;; (name rust)
-   ;; (url "https://github.com/paulalesius/guix-rust")
-   ;; (branch "main")
-   ;; (introduction
-   ;;  (channel-introduction
-   ;;   (version 0)
-   ;;   (commit "1fc51a49b05763f9097ed3a8c77ef4156d89e843")
-   ;;   (signer "BBB0 2DDF 2CEA F6A8 0D1D  E643 A2A0 6DF2 A33A 54FA"))))
-))
+    (url "https://github.com/paulalesius/guix-nongnu")
+    (branch "custom")
+    (introduction
+     (channel-introduction
+      (version 0)
+      (commit "3bd65a44e92e1e29ce63252ae9a5a0a328a55f72")
+      (signer "AB7C 0B82 B5DC A8BB 94F7  AC94 4FC8 0465 FEDC EB19"))))))
