@@ -11,7 +11,7 @@
     (introduction
      (channel-introduction
       (version 0)
-      (commit "58049a5fa10e375f3c2a54ab6b5e227e58d61865")
+      (commit "e11570b8b01e5b5354351678273bf6e8779cdc61")
       (signer "AB7C 0B82 B5DC A8BB 94F7  AC94 4FC8 0465 FEDC EB19"))))
    (channel
     (name nonguix)
