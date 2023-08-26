@@ -2,6 +2,7 @@
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages python-build)
+  #:use-module (gnu packages graphics)
   #:use-module (gnu packages check)
   #:use-module (gnu packages python-crypto)
   #:use-module (gnu packages python-science)
@@ -275,4 +276,85 @@ refactoring library.")
 Python 3 language specification for the Language Server Protocol (LSP).
 This tool is used in text editing environments to provide a complete
 and integrated feature-set for programming Python effectively.")
+    (license license:expat)))
+
+(define-public python-cleo-2.0
+  (package
+    (name "python-cleo")
+    (version "2.0.1")
+    (source (origin
+              (method url-fetch)
+              (uri (pypi-uri "cleo" version))
+              (sha256
+               (base32
+                "1iayl7s1mrdjd6zc78vmcli3q5i4j5p9lj5yrs2i1hb360gjwjzb"))))
+    (build-system pyproject-build-system)
+    (native-inputs
+     (list ;; For testing
+           python-mock python-pytest-mock python-pytest python-poetry-core))
+    (propagated-inputs
+     (list python-backpack python-clikit python-pastel python-pylev))
+    (arguments
+     `(#:tests? #f                      ;PyPI does not have tests
+       #:phases
+       (modify-phases %standard-phases
+         (delete 'sanity-check))))
+    (home-page "https://github.com/sdispater/cleo")
+    (synopsis "Command-line arguments library for Python")
+    (description
+     "Cleo allows you to create command-line commands with signature in
+docstring and colored output.")
+    (license license:expat)))
+
+(define-public poetry
+  (package
+    (name "poetry")
+    (version "1.6.1")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (pypi-uri "poetry" version))
+       (sha256
+        (base32
+         "1lirh32fcmxd56w6hx4x205cqwlwl7pammmqaarch73kjajv3f8a"))))
+    (build-system pyproject-build-system)
+    (arguments
+     `(#:tests? #f                      ;PyPI does not have tests
+       #:phases
+       (modify-phases %standard-phases
+         (delete 'sanity-check))
+       ;; #:phases
+       ;; (modify-phases %standard-phases
+       ;;   (add-before 'build 'patch-setup-py
+       ;;     (lambda _
+       ;;       (substitute* "setup.py"
+       ;;         ;; Relax some of the requirements.
+       ;;         (("(keyring>=21.2.0),<22.0.0" _ keyring) keyring)
+       ;;         (("(packaging>=20.4),<21.0" _ packaging) packaging)))))
+       ))
+    (propagated-inputs
+     (list python-cachecontrol
+           python-cachy
+           python-cleo-2.0
+           python-crashtest
+           python-entrypoints
+           python-html5lib
+           python-keyring
+           python-msgpack
+           python-packaging
+           python-pexpect
+           python-pip
+           python-pkginfo
+           python-poetry-core
+           python-requests
+           python-requests-toolbelt
+           python-shellingham
+           python-tomlkit
+           python-cleo
+           python-virtualenv))
+    (home-page "https://python-poetry.org")
+    (synopsis "Python dependency management and packaging made easy")
+    (description "Poetry is a tool for dependency management and packaging
+in Python.  It allows you to declare the libraries your project depends on and
+it will manage (install/update) them for you.")
     (license license:expat)))
