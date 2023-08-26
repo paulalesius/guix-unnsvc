@@ -350,7 +350,6 @@ docstring and colored output.")
            python-requests-toolbelt
            python-shellingham
            python-tomlkit
-           python-cleo
            python-virtualenv))
     (home-page "https://python-poetry.org")
     (synopsis "Python dependency management and packaging made easy")
