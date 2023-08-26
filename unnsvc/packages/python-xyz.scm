@@ -306,7 +306,7 @@ and integrated feature-set for programming Python effectively.")
 docstring and colored output.")
     (license license:expat)))
 
-(define-public poetry
+(define-public poetry-1.6
   (package
     (name "poetry")
     (version "1.6.1")
