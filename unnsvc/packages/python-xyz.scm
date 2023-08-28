@@ -257,7 +257,7 @@ Distance")
            python-pexpect
            python-pip
            python-pkginfo-1.9
-           python-poetry-core
+           python-poetry-core-1.7
            python-requests
            python-requests-toolbelt
            python-shellingham
