@@ -14,25 +14,9 @@
   #:use-module (gnu packages python-science)
   #:use-module (gnu packages python-xyz)
   #:use-module (gnu packages python-web)
+  #:use-module (gnu packages version-control)
+  #:use-module (gnu packages gnupg)
   #:use-module ((guix licenses) #:prefix license:))
-
-(define-public python-docstring-to-markdown
-  (package
-    (name "python-docstring-to-markdown")
-    (version "0.12")
-    (source
-     (origin
-       (method url-fetch)
-       (uri (pypi-uri "docstring-to-markdown" version))
-       (sha256
-        (base32
-         "1fxjgy15dylyf2b4hjvcsspl24x4ayrmpf7kq1j6zg8jnhj44020"))))
-    (build-system python-build-system)
-    (propagated-inputs (list python-lxml python-six python-whatthepatch))
-    (home-page "https://github.com/xyz")
-    (synopsis "xyz")
-    (description "xyz")
-    (license license:lgpl2.1+)))
 
 (define-public python-runtests
   (package
@@ -123,6 +107,187 @@
     (description "xyz")
     (license license:expat)))
 
+(define-public python-pkginfo-1.9
+  (package/inherit python-pkginfo
+    (version "1.9.6")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (pypi-uri "pkginfo" version))
+       (sha256
+        (base32
+         "0inh57664sx2vlbd3913dsc9nz21ysb9vk591qpkg90qhxp8kmcg"))))
+    (build-system python-build-system)
+    (native-inputs
+     (list python-wheel))))
+
+(define-public python-dulwich-21
+  (package/inherit python-dulwich
+    (version "0.21.5")
+    (source
+      (origin
+        (method url-fetch)
+        (uri (list (string-append "https://www.dulwich.io/releases/"
+                            "dulwich-" version ".tar.gz")
+                   (pypi-uri "dulwich" version)))
+        (sha256
+          (base32
+           "00rik55i99hgax97rcckz5cfacg9fh7vjdj69bisdpcx4i75x5bh"))))
+    (build-system python-build-system)
+    (arguments
+     '(#:tests? #f
+       #:phases
+       (modify-phases %standard-phases
+         (add-before 'check 'fix-tests
+           (lambda* (#:key inputs #:allow-other-keys)
+             (substitute* '("dulwich/tests/test_repository.py"
+                            "dulwich/tests/test_porcelain.py"
+                            "dulwich/tests/test_hooks.py")
+               (("/bin/sh") (search-input-file inputs "/bin/sh")))
+             (setenv "TEST_RUNNER" "unittest")
+             (setenv "PYTHONHASHSEED" "random"))))))
+    (propagated-inputs
+     (list python-fastimport python-urllib3))
+    (native-inputs
+     (list python-mock python-geventhttpclient python-gpg
+           git gnupg python-paramiko python-requests))))
+
+(define-public python-cachecontrol-0.13
+  (package/inherit python-cachecontrol
+    (version "0.13.1")
+    (source
+      (origin
+        (method url-fetch)
+        (uri (pypi-uri "cachecontrol" version))
+        (sha256
+          (base32
+           "0sshgq42kg89gyjqxb2x9a6s6lmza4qyg71h31hkl96jg5mkc4ph"))))
+    (build-system pyproject-build-system)
+    (propagated-inputs
+     (list python-requests python-msgpack python-lockfile python-flit-core))))
+
+(define-public python-crashtest-0.4
+  (package/inherit python-crashtest
+    (version "0.4.1")
+    (source
+      (origin
+        (method url-fetch)
+        (uri (pypi-uri "crashtest" version))
+        (sha256
+          (base32
+           "1kphcr9af50p37j9v5s8p8qblxy8fmi6s1s8yqlx9yzb2vrv3mw0"))))
+    (build-system python-build-system)
+    (home-page "https://github.com/sdispater/crashtest")
+    (synopsis "Manage Python errors with ease")
+    (description
+     "Python library that makes exceptions handling and inspection easier.")
+    (license license:expat)))
+
+(define-public python-virtualenv-22.24
+  (package/inherit python-virtualenv
+    (version "20.24.3")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (pypi-uri "virtualenv" version))
+       (sha256
+        (base32
+         "1z1ysb778zjjny6fdcf48y3wj64l54m6ll21y25342vvh77b9hz5"))))
+    (build-system pyproject-build-system)
+    (native-inputs
+     (list python-mock python-pytest python-setuptools-scm python-hatchling python-hatch-vcs python-platformdirs))
+    (propagated-inputs
+     (list python-appdirs python-distlib python-filelock python-six))
+    (arguments
+     `(#:tests? #f
+       #:phases (modify-phases %standard-phases
+                  ;; Loading the library fails because DRMAA_LIBRARY_PATH
+                  ;; is not configured.
+                  (delete 'sanity-check))))))
+
+(define-public python-rapidfuzz
+  (package
+    (name "python-rapidfuzz")
+    (version "3.2.0")
+    (source (origin
+              (method url-fetch)
+              (uri (pypi-uri "rapidfuzz" version))
+              (sha256
+               (base32
+                "0yspc3wsrim59jrnx556alxqvikg2n245ga2dn1agzk0k4fh73a4"))))
+    (build-system python-build-system)
+    (arguments
+     `(#:tests? #f                      ;PyPI does not have tests
+       #:phases
+       (modify-phases %standard-phases
+         (delete 'sanity-check))))
+    (home-page "https://github.com/sdispater/cleo")
+    (synopsis "rapid fuzzy string matching")
+    (description
+     "Rapid fuzzy string matching in Python and C++ using the Levenshtein
+Distance")
+    (license license:expat)))
+
+(define-public poetry-1.6
+  (package/inherit poetry
+    (version "1.6.1")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (pypi-uri "poetry" version))
+       (sha256
+        (base32
+         "1lirh32fcmxd56w6hx4x205cqwlwl7pammmqaarch73kjajv3f8a"))))
+    (build-system pyproject-build-system)
+    (arguments
+     `(#:tests? #f                      ;PyPI does not have tests
+       #:phases
+       (modify-phases %standard-phases
+         (delete 'sanity-check))))
+    (propagated-inputs
+     (list python-cachecontrol-0.13
+           python-cleo
+           python-crashtest-0.4
+           python-dulwich
+           python-entrypoints
+           python-html5lib
+           python-keyring
+           python-msgpack
+           python-packaging-23
+           python-pexpect
+           python-pip
+           python-pkginfo-1.9
+           python-poetry-core
+           python-requests
+           python-requests-toolbelt
+           python-shellingham
+           python-tomlkit
+           python-virtualenv-22.24
+           python-rapidfuzz))))
+
+(define-public python-packaging-23
+  (package
+    (name "python-packaging")
+    (version "23.0")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (pypi-uri "packaging" version))
+       (sha256
+        (base32
+         "15yg8sagk2ffikgzwxbjgksgb1zkv9px5jqwzsi0zph7i5zjkbdn"))))
+    (build-system pyproject-build-system)
+    (native-inputs (list python-flit-core))
+    (arguments
+     `(#:phases
+       (modify-phases %standard-phases
+         (delete 'check)
+         (delete 'sanity-check))))
+    (home-page "https://github.com/xyz")
+    (synopsis "xyz")
+    (description "xyz")
+    (license license:gpl3)))
+
 (define-public python-pdm-pep517
   (package
     (name "python-pdm-pep517")
@@ -169,28 +334,23 @@
     (description "xyz")
     (license license:gpl3)))
 
-(define-public python-packaging-23
+(define-public python-docstring-to-markdown
   (package
-    (name "python-packaging")
-    (version "23.0")
+    (name "python-docstring-to-markdown")
+    (version "0.12")
     (source
      (origin
        (method url-fetch)
-       (uri (pypi-uri "packaging" version))
+       (uri (pypi-uri "docstring-to-markdown" version))
        (sha256
         (base32
-         "15yg8sagk2ffikgzwxbjgksgb1zkv9px5jqwzsi0zph7i5zjkbdn"))))
-    (build-system pyproject-build-system)
-    (native-inputs (list python-flit-core))
-    (arguments
-     `(#:phases
-       (modify-phases %standard-phases
-         (delete 'check)
-         (delete 'sanity-check))))
+         "1fxjgy15dylyf2b4hjvcsspl24x4ayrmpf7kq1j6zg8jnhj44020"))))
+    (build-system python-build-system)
+    (propagated-inputs (list python-lxml python-six python-whatthepatch))
     (home-page "https://github.com/xyz")
     (synopsis "xyz")
     (description "xyz")
-    (license license:gpl3)))
+    (license license:lgpl2.1+)))
 
 (define-public python-rope-1.9
   (package
@@ -215,197 +375,6 @@
     (description "Rope is the world’s most advanced open source Python
 refactoring library.")
     (license license:lgpl2.1+)))
-
-(define-public python-rapidfuzz
-  (package
-    (name "python-rapidfuzz")
-    (version "3.2.0")
-    (source (origin
-              (method url-fetch)
-              (uri (pypi-uri "rapidfuzz" version))
-              (sha256
-               (base32
-                "0yspc3wsrim59jrnx556alxqvikg2n245ga2dn1agzk0k4fh73a4"))))
-    (build-system python-build-system)
-    (arguments
-     `(#:tests? #f                      ;PyPI does not have tests
-       #:phases
-       (modify-phases %standard-phases
-         (delete 'sanity-check))))
-    (home-page "https://github.com/sdispater/cleo")
-    (synopsis "rapid fuzzy string matching")
-    (description
-     "Rapid fuzzy string matching in Python and C++ using the Levenshtein
-Distance")
-    (license license:expat)))
-
-(define-public python-rapidfuzz
-  (package
-    (name "python-rapidfuzz")
-    (version "3.2.0")
-    (source (origin
-              (method url-fetch)
-              (uri (pypi-uri "rapidfuzz" version))
-              (sha256
-               (base32
-                "0yspc3wsrim59jrnx556alxqvikg2n245ga2dn1agzk0k4fh73a4"))))
-    (build-system python-build-system)
-    (arguments
-     `(#:tests? #f                      ;PyPI does not have tests
-       #:phases
-       (modify-phases %standard-phases
-         (delete 'sanity-check))))
-    (home-page "https://github.com/sdispater/cleo")
-    (synopsis "rapid fuzzy string matching")
-    (description
-     "Rapid fuzzy string matching in Python and C++ using the Levenshtein
-Distance")
-    (license license:expat)))
-
-(define-public python-pkginfo-1.9
-  (package/inherit python-pkginfo
-    (version "1.9.6")
-    (source
-     (origin
-       (method url-fetch)
-       (uri (pypi-uri "pkginfo" version))
-       (sha256
-        (base32
-         "0inh57664sx2vlbd3913dsc9nz21ysb9vk591qpkg90qhxp8kmcg"))))
-    (build-system python-build-system)
-    (native-inputs
-     (list python-wheel))))
-
-(define-public python-dulwich-21
-  (package/inherit python-dulwich
-    (version "0.21.5")
-    (source
-      (origin
-        (method url-fetch)
-        (uri (list (string-append "https://www.dulwich.io/releases/"
-                            "dulwich-" version ".tar.gz")
-                   (pypi-uri "dulwich" version)))
-        (sha256
-          (base32
-           "00rik55i99hgax97rcckz5cfacg9fh7vjdj69bisdpcx4i75x5bh"))))
-    (build-system python-build-system)
-    (arguments
-     '(#:tests? #f
-       #:phases
-       (modify-phases %standard-phases
-         (add-before 'check 'fix-tests
-           (lambda* (#:key inputs #:allow-other-keys)
-             (substitute* '("dulwich/tests/test_repository.py"
-                            "dulwich/tests/test_porcelain.py"
-                            "dulwich/tests/test_hooks.py")
-               (("/bin/sh") (search-input-file inputs "/bin/sh")))
-             (setenv "TEST_RUNNER" "unittest")
-             (setenv "PYTHONHASHSEED" "random"))))))
-    (propagated-inputs
-     (list python-fastimport python-urllib3))
-    (native-inputs
-     (list python-mock python-geventhttpclient python-gpg
-           git gnupg python-paramiko python-requests))))
-
-(define-public python-cachecontrol-13
-  (package/inherit python-cachecontrol
-    (version "0.13.0")
-    (source
-     (origin
-       (method git-fetch)
-       ;; Pypi does not have tests.
-       (uri (git-reference
-             (url "https://github.com/ionrock/cachecontrol")
-             (commit (string-append "v" version))))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32
-         "0lhav07b83ckizdgy4jgic97kn7zh2nsxnb66xvgbi5502pa6lgw"))))
-    (build-system python-build-system)
-    (arguments
-     ;; Versions > 0.11.6 depend on CherryPy for testing.
-     ;; It's too much work to package CherryPy for now.
-     `(#:tests? #f))
-    (propagated-inputs
-     (list python-requests python-msgpack python-lockfile))
-    ))
-
-(define-public python-crashtest
-  (package
-    (name "python-crashtest")
-    (version "0.4.1")
-    (source
-      (origin
-        (method url-fetch)
-        (uri (pypi-uri "crashtest" version))
-        (sha256
-          (base32
-           "1p9p7mn8x2j9psc4jxab98897v4i9s4fliyfw8rp8v4bx1n7pjj2"))))
-    (build-system python-build-system)
-    (home-page "https://github.com/sdispater/crashtest")
-    (synopsis "Manage Python errors with ease")
-    (description
-     "Python library that makes exceptions handling and inspection easier.")
-    (license license:expat)))
-
-(define-public python-virtualenv-22.24
-  (inherit/package python-virtualenv
-    (version "20.24.3")
-    (source
-     (origin
-       (method url-fetch)
-       (uri (pypi-uri "virtualenv" version))
-       (sha256
-        (base32
-         "1z1ysb778zjjny6fdcf48y3wj64l54m6ll21y25342vvh77b9hz5"))))
-    (build-system pyproject-build-system)
-    (native-inputs
-     (list python-mock python-pytest python-setuptools-scm python-hatchling python-hatch-vcs python-platformdirs))
-    (propagated-inputs
-     (list python-appdirs python-distlib python-filelock python-six))
-    (arguments
-     `(#:tests? #f
-       #:phases (modify-phases %standard-phases
-                  ;; Loading the library fails because DRMAA_LIBRARY_PATH
-                  ;; is not configured.
-                  (delete 'sanity-check))))))
-
-(define-public poetry-1.6
-  (package/inherit poetry
-    (version "1.6.1")
-    (source
-     (origin
-       (method url-fetch)
-       (uri (pypi-uri "poetry" version))
-       (sha256
-        (base32
-         "1lirh32fcmxd56w6hx4x205cqwlwl7pammmqaarch73kjajv3f8a"))))
-    (build-system pyproject-build-system)
-    (arguments
-     `(#:tests? #f                      ;PyPI does not have tests
-       #:phases
-       (modify-phases %standard-phases
-         (delete 'sanity-check))))
-    (propagated-inputs
-     (list python-cachecontrol
-           python-cleo
-           python-crashtest
-           python-dulwich
-           python-entrypoints
-           python-html5lib
-           python-keyring
-           python-msgpack
-           python-packaging
-           python-pexpect
-           python-pip
-           python-pkginfo
-           python-poetry-core
-           python-requests
-           python-requests-toolbelt
-           python-shellingham
-           python-tomlkit
-           python-virtualenv
-           python-rapidfuzz))))
 
 (define-public python-lsp-server-1.7
   (package
