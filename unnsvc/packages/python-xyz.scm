@@ -1,5 +1,4 @@
 (define-module (unnsvc packages python-xyz)
-  #:use-module (gnu)
   #:use-module (gnu packages)
   #:use-module (guix build-system pyproject)
   #:use-module (guix build-system python)
