@@ -16,7 +16,8 @@
   #:use-module (gnu packages python-web)
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages gnupg)
-  #:use-module ((guix licenses) #:prefix license:))
+  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (unnsvc packages python-build))
 
 (define-public python-runtests
   (package
