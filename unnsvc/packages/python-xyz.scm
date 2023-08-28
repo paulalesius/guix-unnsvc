@@ -1,16 +1,21 @@
 (define-module (unnsvc packages python-xyz)
-  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (gnu)
   #:use-module (gnu packages)
   #:use-module (guix build-system pyproject)
   #:use-module (guix build-system python)
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (guix git-download)
-  #:use-module (guix utils))
-
-(use-package-modules
- check graphics xml mpi
- python-build python-crypto python-science python-xyz python-web)
+  #:use-module (guix utils)
+  #:use-module (gnu packages check)
+  #:use-module (gnu packages xml)
+  #:use-module (gnu packages mpi)
+  #:use-module (gnu packages python-build)
+  #:use-module (gnu packages python-crypto)
+  #:use-module (gnu packages python-science)
+  #:use-module (gnu packages python-xyz)
+  #:use-module (gnu packages python-web)
+  #:use-module ((guix licenses) #:prefix license:))
 
 (define-public python-docstring-to-markdown
   (package
