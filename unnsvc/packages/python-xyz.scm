@@ -277,7 +277,7 @@ Distance")
      (list python-wheel))))
 
 (define-public python-dulwich-21
-  (package/inherit
+  (package/inherit python-dulwich
     (version "0.21.5")
     (source
       (origin
