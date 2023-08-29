@@ -1,31 +1,7 @@
-;;
-
-
-(define-module (unnsvc packages admin)
-  #:use-module (guix build-system go)
-  #:use-module (guix packages)
-  #:use-module (guix git-download)
-  #:use-module (guix utils)
-  #:use-module (guix gexp)
-  #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (gnu packages)
-  #:use-module (gnu packages documentation)
-  #:use-module (gnu packages admin)
-  #:use-module (gnu packages ncurses)
-  #:use-module (gnu packages linux))
-
-(define-public thermald-custom
-  (package/inherit thermald
-    (version "2.5.4")
-    (source
-     (origin
-      (method git-fetch)
-      (uri (git-reference
-             (url "https://github.com/intel/thermal_daemon")
-             (commit (string-append "v" version))))
-      (file-name (git-file-name name version))
-      (sha256
-       (base32 "1w886ik0izjmzsfff0g6rmn27xma5b66qv73cfjih7pyvclhnhp5"))))))
+(define-module (unnsvc packages containers)
+  #:use-module (gnu packages linux)
+  #:use-module (gnu packages containers)
+  #:use-module (guix packages))
 
 (define-public sbctl
   (package

@@ -264,7 +264,8 @@ Distance")
            python-shellingham
            python-tomlkit
            python-virtualenv-22.24
-           python-rapidfuzz))))
+           python-rapidfuzz
+           ))))
 
 (define-public python-packaging-23
   (package
