@@ -81,6 +81,7 @@
 
 (define-public swayidle-custom
   (package/inherit swayidle
+    (name "swayidle")
     (version "1.8.0")
     (source
      (origin
@@ -95,6 +96,7 @@
 
 (define-public waybar-custom
   (package/inherit waybar
+    (name "waybar")
     (version "0.9.20")
     (source
      (origin
