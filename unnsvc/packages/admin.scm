@@ -16,6 +16,7 @@
 
 (define-public thermald-custom
   (package/inherit thermald
+    (name "thermald")
     (version "2.5.4")
     (source
      (origin
