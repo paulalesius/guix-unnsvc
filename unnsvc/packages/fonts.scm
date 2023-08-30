@@ -27,17 +27,17 @@
 (define-public font-nerd-fonts
   (package
     (name "font-nerd-fonts")
-    (version "2.1.0")
+    (version "3.0.2")
     (source
      (origin
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/ryanoasis/nerd-fonts")
-             (commit version)))
+             (commit (string-append "v" version))))
        (file-name (git-file-name name version))
        (sha256
         (base32
-         "1la79y16k9rwcl2zsxk73c0kgdms2ma43kpjfqnq5jlbfdj0niwg"))))
+         "0jld6wkb34n1lw27112yg3f1xv878inrcia60w8791annhv13kwx"))))
     (build-system font-build-system)
     (arguments
      `(#:phases
