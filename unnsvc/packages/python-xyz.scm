@@ -218,7 +218,7 @@
                (base32
                 "1xaf4sharvacqlav6w3b38nc4j0rzg0p4axi7zamanbzp6cb4wgj"))))
     (build-system pyproject-build-system)
-    (propagated-inputs (list python-packaging))
+    (propagated-inputs (list python-packaging-23))
     (native-inputs (list python-pypa-build python-pytest python-tomli python-flit-core python-testpath))
     (home-page "https://github.com/xyz")
     (synopsis "xyz")
