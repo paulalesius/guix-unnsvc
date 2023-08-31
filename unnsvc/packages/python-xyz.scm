@@ -207,6 +207,24 @@
                   ;; is not configured.
                   (delete 'sanity-check))))))
 
+(define-public python-pyproject-hooks
+  (package
+    (name "python-pyproject-hooks")
+    (version "1.0.0")
+    (source (origin
+              (method url-fetch)
+              (uri (pypi-uri "pyproject_hooks" version))
+              (sha256
+               (base32
+                "1xaf4sharvacqlav6w3b38nc4j0rzg0p4axi7zamanbzp6cb4wgj"))))
+    (build-system pyproject-build-system)
+    (propagated-inputs (list python-packaging))
+    (native-inputs (list python-pypa-build python-pytest python-tomli python-flit-core python-testpath))
+    (home-page "https://github.com/xyz")
+    (synopsis "xyz")
+    (description "xyz")
+    (license license:expat)))
+
 (define-public python-rapidfuzz
   (package
     (name "python-rapidfuzz")
@@ -304,6 +322,7 @@ Distance")
            python-pkginfo-1.9
            python-poetry-core-1.7
            python-platformdirs-3
+           python-pyproject-hooks
            python-requests
            python-requests-toolbelt
            python-shellingham
