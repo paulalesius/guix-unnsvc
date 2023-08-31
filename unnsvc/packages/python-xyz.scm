@@ -258,6 +258,20 @@ Distance")
      (list
       python-mock python-pytest-mock python-pytest python-rapidfuzz))))
 
+(define-public python-platformdirs-3
+  (package/inherit python-platformdirs
+    (version "3.10.0")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (pypi-uri "platformdirs" version))
+       (sha256
+        (base32 "0vbzyw1k6wvg8gv9cg99ds5pri007c6rqx9668d6kk6pnbd9cmml"))))
+    (build-system pyproject-build-system)
+    (native-inputs
+     (list
+      python-appdirs python-pytest python-pytest-mock python-hatch-vcs python-hatchling))))
+
 (define-public poetry-1.6
   (package/inherit poetry
     (version "1.6.1")
@@ -289,6 +303,7 @@ Distance")
            python-pip
            python-pkginfo-1.9
            python-poetry-core-1.7
+           python-platformdirs-3
            python-requests
            python-requests-toolbelt
            python-shellingham
