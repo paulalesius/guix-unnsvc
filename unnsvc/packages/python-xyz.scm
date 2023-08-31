@@ -168,22 +168,22 @@
     (propagated-inputs
      (list python-requests python-msgpack python-lockfile python-flit-core))))
 
-(define-public python-crashtest-0.4
-  (package/inherit python-crashtest
-    (version "0.4.1")
-    (source
-      (origin
-        (method url-fetch)
-        (uri (pypi-uri "crashtest" version))
-        (sha256
-          (base32
-           "1kphcr9af50p37j9v5s8p8qblxy8fmi6s1s8yqlx9yzb2vrv3mw0"))))
-    (build-system python-build-system)
-    (home-page "https://github.com/sdispater/crashtest")
-    (synopsis "Manage Python errors with ease")
-    (description
-     "Python library that makes exceptions handling and inspection easier.")
-    (license license:expat)))
+;; (define-public python-crashtest-0.4
+;;   (package/inherit python-crashtest
+;;     (version "0.4.1")
+;;     (source
+;;       (origin
+;;         (method url-fetch)
+;;         (uri (pypi-uri "crashtest" version))
+;;         (sha256
+;;           (base32
+;;            "1kphcr9af50p37j9v5s8p8qblxy8fmi6s1s8yqlx9yzb2vrv3mw0"))))
+;;     (build-system python-build-system)
+;;     (home-page "https://github.com/sdispater/crashtest")
+;;     (synopsis "Manage Python errors with ease")
+;;     (description
+;;      "Python library that makes exceptions handling and inspection easier.")
+;;     (license license:expat)))
 
 (define-public python-virtualenv-22.24
   (package/inherit python-virtualenv
@@ -278,7 +278,7 @@ Distance")
     (propagated-inputs
      (list python-cachecontrol-0.13
            python-cleo-2.0
-           python-crashtest-0.4
+           python-crashtest
            python-dulwich
            python-entrypoints
            python-html5lib
