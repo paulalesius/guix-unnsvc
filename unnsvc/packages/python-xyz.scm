@@ -218,8 +218,26 @@
                (base32
                 "1xaf4sharvacqlav6w3b38nc4j0rzg0p4axi7zamanbzp6cb4wgj"))))
     (build-system pyproject-build-system)
-    (propagated-inputs (list python-packaging-23))
-    (native-inputs (list python-pypa-build python-pytest python-tomli python-flit-core python-testpath))
+    (native-inputs (list
+                    python-flit-core python-pytest python-testpath))
+    (home-page "https://github.com/xyz")
+    (synopsis "xyz")
+    (description "xyz")
+    (license license:expat)))
+
+(define-public python-installer
+  (package
+    (name "python-installer")
+    (version "0.7.0")
+    (source (origin
+              (method url-fetch)
+              (uri (pypi-uri "installer" version))
+              (sha256
+               (base32
+                "0cdnqh3a3amw8k4s1pzfjh0hpvzw4pczgl702s1b16r82qqkwvd2"))))
+    (build-system pyproject-build-system)
+    (native-inputs (list
+                    python-flit-core python-pytest python-testpath))
     (home-page "https://github.com/xyz")
     (synopsis "xyz")
     (description "xyz")
@@ -314,6 +332,7 @@ Distance")
            python-dulwich
            python-entrypoints
            python-html5lib
+           python-installer
            python-keyring
            python-msgpack
            python-packaging-23
