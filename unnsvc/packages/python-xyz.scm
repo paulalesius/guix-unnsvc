@@ -15,6 +15,7 @@
   #:use-module (gnu packages python-xyz)
   #:use-module (gnu packages python-web)
   #:use-module (gnu packages version-control)
+  #:use-module (gnu packages graphics)
   #:use-module (gnu packages gnupg)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (unnsvc packages python-build))
@@ -209,13 +210,13 @@
 (define-public python-rapidfuzz
   (package
     (name "python-rapidfuzz")
-    (version "3.2.0")
+    (version "2.15.1")
     (source (origin
               (method url-fetch)
               (uri (pypi-uri "rapidfuzz" version))
               (sha256
                (base32
-                "0yspc3wsrim59jrnx556alxqvikg2n245ga2dn1agzk0k4fh73a4"))))
+                "1xh0mkbhgnrwgwhrlnmypwwig3ww23fdffh0245akbiprb13f8fn"))))
     (build-system python-build-system)
     (arguments
      `(#:tests? #f                      ;PyPI does not have tests
@@ -228,6 +229,34 @@
      "Rapid fuzzy string matching in Python and C++ using the Levenshtein
 Distance")
     (license license:expat)))
+
+;; Propagates crashtest from guix-gnu, so it causes a conflict when propagating it twice through clikit, this
+;; is the reason for this package, for porpagating the same crashtest-0.4
+(define-public python-clikit-custom
+  (package/inherit python-clikit
+    (propagated-inputs
+     (list python-crashtest python-pastel python-pylev))))
+
+(define-public python-cleo-2.0
+  (package/inherit python-cleo
+    (version "2.0.1")
+    (source (origin
+              (method url-fetch)
+              (uri (pypi-uri "cleo" version))
+              (sha256
+               (base32
+                "1iayl7s1mrdjd6zc78vmcli3q5i4j5p9lj5yrs2i1hb360gjwjzb"))))
+    (arguments
+     `(#:tests? #f                      ;PyPI does not have tests
+       #:phases
+       (modify-phases %standard-phases
+         (delete 'sanity-check)
+         (delete 'check))))
+    (propagated-inputs
+     (list python-backpack python-clikit-custom python-pastel python-pylev))
+    (native-inputs
+     (list
+      python-mock python-pytest-mock python-pytest python-rapidfuzz))))
 
 (define-public poetry-1.6
   (package/inherit poetry
@@ -244,10 +273,11 @@ Distance")
      `(#:tests? #f                      ;PyPI does not have tests
        #:phases
        (modify-phases %standard-phases
-         (delete 'sanity-check))))
+         (delete 'sanity-check)
+         (delete 'check))))
     (propagated-inputs
      (list python-cachecontrol-0.13
-           python-cleo
+           python-cleo-2.0
            python-crashtest-0.4
            python-dulwich
            python-entrypoints
@@ -263,9 +293,9 @@ Distance")
            python-requests-toolbelt
            python-shellingham
            python-tomlkit
-           python-virtualenv-22.24
-           python-rapidfuzz
-           ))))
+           python-virtualenv-22.24))
+    (native-inputs
+     (list python-rapidfuzz))))
 
 (define-public python-packaging-23
   (package
