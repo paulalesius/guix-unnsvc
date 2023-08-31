@@ -58,6 +58,20 @@
            glib
            libseccomp))))
 
+(define-public cni-plugins-custom
+  (package/inherit cni-plugins
+    (name "cni-plugins")
+    (version "1.3.0")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/containernetworking/plugins")
+             (commit (string-append "v" version))))
+       (sha256
+        (base32 "1s7vwbnhh8h2drsi82vs50xh47ab2akh1398ikyxxjdp0bvqdfbi"))
+       (file-name (git-file-name name version))))))
+
 (define-public podman-custom
   (package/inherit podman
     (name "podman")
@@ -77,7 +91,7 @@
        (file-name (git-file-name name version))))
     (inputs
      (list btrfs-progs
-           cni-plugins
+           cni-plugins-custom
            conmon-custom
            crun-custom
            gpgme
