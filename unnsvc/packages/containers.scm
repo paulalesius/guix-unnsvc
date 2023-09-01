@@ -2091,7 +2091,7 @@
         (base32 "1s7vwbnhh8h2drsi82vs50xh47ab2akh1398ikyxxjdp0bvqdfbi"))
        (file-name (git-file-name name version))))))
 
-(define-public podman-custom
+(define-public podman-netavark
   (package/inherit podman
     (name "podman")
     (version "4.6.2")
