@@ -2109,7 +2109,8 @@
         (base32 "1a0p3g643b4hskcnsvjxlgbj2ixg7i5nnwb8yv6hpfkjwkndn737"))
        (file-name (git-file-name name version))))
     (inputs
-     (list btrfs-progs
+     (list netavark
+           btrfs-progs
            cni-plugins-custom
            conmon-custom
            crun-custom
