@@ -38,7 +38,6 @@
   #:use-module (gnu packages ncurses)
   #:use-module (gnu packages suckless)
   #:use-module (gnu packages sqlite)
-  ;;#:use-module (flat packages emacs)
   #:use-module (gnu packages tree-sitter)
   )
 
@@ -283,6 +282,12 @@ exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
                 (delete-file (string-append lisp-dir "/subdirs.el"))
                 ;; Byte compile the site-start files.
                 (emacs-byte-compile-directory lisp-dir))))
+  	  (add-after 'glib-or-gtk-wrap 'strip-double-wrap
+		     (lambda* (#:key outputs #:allow-other-keys)
+			      (with-directory-excursion (assoc-ref outputs "out")
+				(copy-file
+				  (car (find-files "bin" "^emacs-([0-9]+\\.)+[0-9]+$"))
+				  "bin/emacs"))))
           (add-after 'strip-double-wrap 'wrap-emacs-paths
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (let* ((out (assoc-ref outputs "out"))
