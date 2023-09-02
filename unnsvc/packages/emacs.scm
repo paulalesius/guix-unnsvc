@@ -38,6 +38,7 @@
   #:use-module (gnu packages ncurses)
   #:use-module (gnu packages suckless)
   ;;#:use-module (flat packages emacs)
+  #:use-module (gnu packages tree-sitter)
   )
 
 (define-public emacs-exwm-managed
@@ -162,14 +163,16 @@ exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
       #:modules (%emacs-modules build-system)
       #:configure-flags #~(list "--with-modules"
                                 "--with-native-compilation=no"
-				                "--with-sound=no"
-				                "--with-x-toolkit=no"
-				                "--without-x"
-				                "--without-cairo"
-				                "--without-systemd"
-				                "--without-gpm"
-                                "--disable-build-details")
-      #:make-flags #~(list "NATIVE_FULL_AOT=1")
+				"--with-sound=no"
+				"--with-x-toolkit=no"
+				"--without-x"
+				"--without-cairo"
+				"--without-systemd"
+				"--without-gpm"
+				"--with-tree-sitter"
+                                ;;"--disable-build-details"
+				)
+      #:make-flags #~(list "NATIVE_FULL_AOT=0")
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'set-paths 'set-libgccjit-path
@@ -377,7 +380,9 @@ exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
 
            ;; multilingualization support
            libotf
-           m17n-lib))
+           m17n-lib
+
+	   tree-sitter))
     (native-inputs
      (list autoconf pkg-config texinfo))
     (native-search-paths
