@@ -167,12 +167,15 @@ exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
 				"--with-x-toolkit=no"
 				"--without-x"
 				"--without-cairo"
-				"--without-systemd"
+				;;"--without-libsystemd" - configured for elogind
+				"--without-lcms2"
 				"--without-gpm"
+				"--without-selinux"
 				"--with-tree-sitter"
                                 ;;"--disable-build-details"
-				)
-      #:make-flags #~(list "NATIVE_FULL_AOT=0")
+				"CFLAGS=-march=native -mtune=native -pipe -O2 -fomit-frame-pointer")
+      #:make-flags #~(list 
+		       "NATIVE_FULL_AOT=0")
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'set-paths 'set-libgccjit-path
@@ -347,18 +350,18 @@ exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
            ;; This is not needed for (modern) IMAP.
            mailutils
 
-           gpm
-           libx11
-           gtk+
-           cairo
-           pango
-           harfbuzz
-           libxft
-           libtiff
-           giflib
-           lcms
-           libjpeg-turbo
-           libselinux
+           ;;gpm
+           ;;libx11
+           ;;gtk+
+           ;;cairo
+           ;;pango
+           ;;harfbuzz
+           ;;libxft
+           ;;libtiff
+           ;;giflib
+           ;;lcms
+           ;;libjpeg-turbo
+           ;;libselinux
            acl
            jansson
            gmp
