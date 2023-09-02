@@ -1,5 +1,9 @@
 (define-module (unnsvc packages containers)
+  #:use-module (guix gexp)
   #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (gnu packages)
+  #:use-module (guix packages)
+  #:use-module (guix utils)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages containers)
   #:use-module (gnu packages selinux)
@@ -9,12 +13,11 @@
   #:use-module (gnu packages crates-io)
   #:use-module (gnu packages protobuf)
   #:use-module (guix download)
-  #:use-module (guix packages)
-  #:use-module (gnu packages)
   #:use-module (guix git-download)
   #:use-module (guix build-system go)
   #:use-module (guix build-system gnu)
-  #:use-module (guix build-system cargo))
+  #:use-module (guix build-system cargo)
+  #:use-module (guix build-system copy))
 
 (define-public rust-iptables
   (package
@@ -2103,14 +2106,16 @@
              (commit (string-append "v" version))))
        (modules '((guix build utils)))
        ;; FIXME: Btrfs libraries not detected by these scripts.
-       (snippet '(substitute* "Makefile"
-                   ((".*hack/btrfs.*") "")))
+       ;;(snippet '(substitute* "Makefile"
+       ;;            ((".*hack/btrfs.*") "")))
        (sha256
         (base32 "1a0p3g643b4hskcnsvjxlgbj2ixg7i5nnwb8yv6hpfkjwkndn737"))
        (file-name (git-file-name name version))))
+    (propagated-inputs
+     (list
+      netavark))
     (inputs
-     (list netavark
-           btrfs-progs
+     (list btrfs-progs
            cni-plugins-custom
            conmon-custom
            crun-custom
