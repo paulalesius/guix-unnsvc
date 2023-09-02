@@ -2094,7 +2094,7 @@
         (base32 "1s7vwbnhh8h2drsi82vs50xh47ab2akh1398ikyxxjdp0bvqdfbi"))
        (file-name (git-file-name name version))))))
 
-(define-public podman-netavark
+(define-public podman-custom
   (package/inherit podman
     (name "podman")
     (version "4.6.2")
@@ -2111,9 +2111,9 @@
        (sha256
         (base32 "1a0p3g643b4hskcnsvjxlgbj2ixg7i5nnwb8yv6hpfkjwkndn737"))
        (file-name (git-file-name name version))))
-    (propagated-inputs
-     (list
-      netavark))
+    ;;(propagated-inputs
+    ;; (list
+    ;;  netavark))
     (inputs
      (list btrfs-progs
            cni-plugins-custom
