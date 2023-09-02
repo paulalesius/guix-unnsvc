@@ -161,7 +161,7 @@ exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
       #:tests? #f                      ; no check target
       #:modules (%emacs-modules build-system)
       #:configure-flags #~(list "--with-modules"
-                                "--with-native-compilation"
+                                "--with-native-compilation=no"
 				                "--with-sound=no"
 				                "--with-x-toolkit=no"
 				                "--without-x"
@@ -169,7 +169,7 @@ exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
 				                "--without-systemd"
 				                "--without-gpm"
                                 "--disable-build-details")
-      #:make-flags #~(list "NATIVE_FULL_AOT=0")
+      #:make-flags #~(list "NATIVE_FULL_AOT=1")
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'set-paths 'set-libgccjit-path
