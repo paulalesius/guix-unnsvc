@@ -37,6 +37,7 @@
   #:use-module (gnu packages tls)
   #:use-module (gnu packages ncurses)
   #:use-module (gnu packages suckless)
+  #:use-module (gnu packages sqlite)
   ;;#:use-module (flat packages emacs)
   #:use-module (gnu packages tree-sitter)
   )
@@ -282,28 +283,6 @@ exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
                 (delete-file (string-append lisp-dir "/subdirs.el"))
                 ;; Byte compile the site-start files.
                 (emacs-byte-compile-directory lisp-dir))))
-          (add-after 'glib-or-gtk-wrap 'restore-emacs-pdmp
-            ;; restore the dump file that Emacs installs somewhere in
-            ;; libexec/ to its original state
-            (lambda* (#:key outputs target #:allow-other-keys)
-              (let* ((libexec (string-append (assoc-ref outputs "out")
-                                             "/libexec"))
-                     ;; each of these ought to only match a single file,
-                     ;; but even if not (find-files) sorts by string<,
-                     ;; so the Nth element in one maps to the Nth element of
-                     ;; the other
-                     (pdmp (find-files libexec "\\.pdmp$"))
-                     (pdmp-real (find-files libexec "\\.pdmp-real$")))
-                (for-each rename-file pdmp-real pdmp))))
-          (add-after 'glib-or-gtk-wrap 'strip-double-wrap
-            (lambda* (#:key outputs #:allow-other-keys)
-              ;; Directly copy emacs-X.Y to emacs, so that it is not wrapped
-              ;; twice.  This also fixes a minor issue, where WMs would not be
-              ;; able to track emacs back to emacs.desktop.
-              (with-directory-excursion (assoc-ref outputs "out")
-                (copy-file
-                 (car (find-files "bin" "^emacs-([0-9]+\\.)+[0-9]+$"))
-                 "bin/emacs"))))
           (add-after 'strip-double-wrap 'wrap-emacs-paths
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (let* ((out (assoc-ref outputs "out"))
@@ -368,24 +347,26 @@ exec ~a --exit-with-session ~a --no-site-file -fs \"$@\" --eval '~s' ~%"
            ghostscript
            poppler
            elogind
+	   inotify-tools
 
            ;; When looking for libpng `configure' links with `-lpng -lz', so we
            ;; must also provide zlib as an input.
            libpng
            zlib
            (librsvg-for-system)
-           libxpm
+           ;;libxpm
            libxml2
-           libice
-           libsm
-           alsa-lib
+           ;;libice
+           ;;libsm
+           ;;alsa-lib
            dbus
 
            ;; multilingualization support
-           libotf
-           m17n-lib
+           ;;libotf
+           ;;m17n-lib
 
-	   tree-sitter))
+	   tree-sitter
+	   sqlite))
     (native-inputs
      (list autoconf pkg-config texinfo))
     (native-search-paths
