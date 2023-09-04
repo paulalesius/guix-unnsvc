@@ -168,22 +168,22 @@
     (propagated-inputs
      (list python-requests python-msgpack python-lockfile python-flit-core))))
 
-;; (define-public python-crashtest-0.4
-;;   (package/inherit python-crashtest
-;;     (version "0.4.1")
-;;     (source
-;;       (origin
-;;         (method url-fetch)
-;;         (uri (pypi-uri "crashtest" version))
-;;         (sha256
-;;           (base32
-;;            "1kphcr9af50p37j9v5s8p8qblxy8fmi6s1s8yqlx9yzb2vrv3mw0"))))
-;;     (build-system python-build-system)
-;;     (home-page "https://github.com/sdispater/crashtest")
-;;     (synopsis "Manage Python errors with ease")
-;;     (description
-;;      "Python library that makes exceptions handling and inspection easier.")
-;;     (license license:expat)))
+(define-public python-crashtest-0.4
+  (package/inherit python-crashtest
+    (version "0.4.1")
+    (source
+      (origin
+        (method url-fetch)
+        (uri (pypi-uri "crashtest" version))
+        (sha256
+          (base32
+           "1kphcr9af50p37j9v5s8p8qblxy8fmi6s1s8yqlx9yzb2vrv3mw0"))))
+    (build-system python-build-system)
+    (home-page "https://github.com/sdispater/crashtest")
+    (synopsis "Manage Python errors with ease")
+    (description
+     "Python library that makes exceptions handling and inspection easier.")
+    (license license:expat)))
 
 (define-public python-virtualenv-22.24
   (package/inherit python-virtualenv
@@ -308,6 +308,21 @@ Distance")
      (list
       python-appdirs python-pytest python-pytest-mock python-hatch-vcs python-hatchling))))
 
+(define-public python-jsonschema-4.17
+  (package/inherit python-jsonschema
+    (version "4.17.3")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (pypi-uri "jsonschema" version))
+       (sha256
+        (base32 "03dnxhvzfxmnpn53zsc0598hsslaz7w3wi87cyx7cq4bmcvl91hg"))))
+    (inputs
+     (list
+      python-hatch-fancy-pypi-readme
+      python-hatchling
+      python-hatch-vcs))))
+
 (define-public poetry-1.6
   (package/inherit poetry
     (version "1.6.1")
@@ -325,28 +340,35 @@ Distance")
        (modify-phases %standard-phases
          (delete 'sanity-check)
          (delete 'check))))
-    (propagated-inputs
-     (list python-cachecontrol-0.13
-           python-cleo-2.0
-           python-crashtest
-           python-dulwich
-           python-entrypoints
-           python-html5lib
-           python-installer
-           python-keyring
-           python-msgpack
-           python-packaging-23
-           python-pexpect
-           python-pip
-           python-pkginfo-1.9
-           python-poetry-core-1.7
-           python-platformdirs-3
-           python-pyproject-hooks
-           python-requests
-           python-requests-toolbelt
-           python-shellingham
-           python-tomlkit
-           python-virtualenv-22.24))
+    (inputs
+     (list
+        python-poetry-core-1.7
+        python-cachecontrol-0.13
+        python-cleo-2.0
+        python-crashtest-0.4
+        python-dulwich-21
+        python-importlib-metadata
+        python-installer
+        python-jsonschema-4.17
+        python-keyring ;; use provided 23.9.3 but defined as: keyring = "^24.0.0"
+        python-packaging-23
+        python-pexpect ;; use 4.8.0 from guix but requires in pyproject: pexpect = "^4.7.0"
+        python-pkginfo-1.9
+        python-platformdirs-3
+        python-pyproject-hooks
+        python-requests
+        python-requests-toolbelt
+        python-shellingham
+        python-tomli
+        python-tomlkit
+        python-trove-classifiers
+        python-virtualenv-22.24
+
+           ;;python-entrypoints
+           ;;python-html5lib
+           ;;python-msgpack
+           ;;python-pip
+                                                                                ))
     (native-inputs
      (list python-rapidfuzz))))
 
