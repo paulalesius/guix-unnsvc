@@ -340,7 +340,7 @@ Distance")
        (modify-phases %standard-phases
          (delete 'sanity-check)
          (delete 'check))))
-    (inputs
+    (propagated-inputs
      (list
         python-poetry-core-1.7
         python-cachecontrol-0.13
@@ -483,6 +483,34 @@ Distance")
 refactoring library.")
     (license license:lgpl2.1+)))
 
+;; (define-public python-lint-2.17
+;;   (package/inherit python-pylint
+;;     (name "python-pylint")
+;;     (version "2.17.5")
+;;     (source
+;;      (origin
+;;        (method git-fetch)
+;;        (uri (git-reference
+;;              (url "https://github.com/PyCQA/pylint")
+;;              (commit (string-append "v" version))))
+;;        (file-name (git-file-name name version))
+;;        (sha256
+;;         (base32 "1zywhbchjm30pm6zkgh62vvaw5q26llv5j3h25y7q9fpmx1zlqbj"))))
+;;     (build-system pyproject-build-system)
+;;     (arguments
+;;      `(#:phases
+;;        (modify-phases %standard-phases
+;;          (replace 'check
+;;            (lambda* (#:key tests? #:allow-other-keys)
+;;              (when tests?
+;;                ;; The unused but collected 'primer'-related test files require
+;;                ;; the extraneous 'git' Python module; remove them.
+;;                (delete-file "tests/primer/test_primer_external.py")
+;;                ;;(delete-file "tests/testutils/test_package_to_lint.py")
+;;                (setenv "HOME" "/tmp")
+;;                (invoke "pytest" "-k" "test_functional"
+;;                        "-n" (number->string (parallel-job-count)))))))))))
+
 (define-public python-lsp-server-1.7
   (package
     (name "python-lsp-server")
@@ -508,7 +536,7 @@ refactoring library.")
          (delete 'check)
          (delete 'sanity-check)
          )))
-    (inputs
+    (propagated-inputs
      (list python-autopep8
            python-pydocstyle
            python-flake8
@@ -533,8 +561,7 @@ refactoring library.")
            python-pytest-cov
            python-versioneer
            python-docstring-to-markdown
-           python-pytoolconfig
-           ))
+           python-pytoolconfig))
     (home-page "https://github.com/python-lsp/python-lsp-server")
     (synopsis "Python implementation of the Language Server Protocol")
     (description
