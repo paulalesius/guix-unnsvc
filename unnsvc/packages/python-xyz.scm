@@ -270,7 +270,7 @@ Distance")
 ;; is the reason for this package, for porpagating the same crashtest-0.4
 (define-public python-clikit-custom
   (package/inherit python-clikit
-    (propagated-inputs
+    (inputs
      (list python-crashtest python-pastel python-pylev))))
 
 (define-public python-cleo-2.0
