@@ -508,7 +508,7 @@ refactoring library.")
          (delete 'check)
          (delete 'sanity-check)
          )))
-    (propagated-inputs
+    (inputs
      (list python-autopep8
            python-pydocstyle
            python-flake8
