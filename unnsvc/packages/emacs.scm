@@ -46,6 +46,20 @@
 (define-public emacs-custom
   (package/inherit emacs
     (name "emacs-custom")
+    (version "29.1")
+    (source
+     (origin
+       (inherit (package-source emacs))
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://git.savannah.gnu.org/git/emacs.git/")
+             (commit (string-append "emacs-" version))))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32
+         "1a0qng5dpjqsv7hqkg9kbwczhg41v1pdvps297q4bglasg1c4w6w"))
+              (patches (search-patches "emacs-exec-path.patch"
+                                       "emacs-fix-scheme-indent-function.patch"))))
     (build-system gnu-build-system)
     (inputs (modify-inputs (package-inputs emacs)
               (delete "libx11" "gtk+" "libxft" "libtiff" "giflib" "libjpeg"
