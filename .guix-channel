@@ -4,15 +4,6 @@
  (version 0)
  (url "https://github.com/paulalesius/guix-unnsvc")
  (dependencies
-   ;;(channel
-   ;; (name guix)
-   ;; (url "https://github.com/paulalesius/guix-gnu")
-   ;; (branch "custom")
-   ;; (introduction
-   ;;  (channel-introduction
-   ;;   (version 0)
-   ;;   (commit "e11570b8b01e5b5354351678273bf6e8779cdc61")
-   ;;   (signer "AB7C 0B82 B5DC A8BB 94F7  AC94 4FC8 0465 FEDC EB19"))))
    (channel
     (name guix)
     (url "https://git.savannah.gnu.org/git/guix.git")
@@ -24,10 +15,10 @@
       (signer "BBB0 2DDF 2CEA F6A8 0D1D  E643 A2A0 6DF2 A33A 54FA"))))
    (channel
     (name nonguix)
-    (url "https://github.com/paulalesius/guix-nongnu")
-    (branch "custom")
+    (url "https://gitlab.com/nonguix/nonguix")
+    (branch "master")
     (introduction
      (channel-introduction
       (version 0)
-      (commit "446a0b3c2747d951a6fc061756ca1a9f42fbabfa")
-      (signer "AB7C 0B82 B5DC A8BB 94F7  AC94 4FC8 0465 FEDC EB19"))))))
+      (commit "897c1a470da759236cc11798f4e0a5f7d4d59fbc")
+      (signer "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))))
